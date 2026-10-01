@@ -1,0 +1,39 @@
+name: install
+on:
+  pull_request:
+  push:
+    branches: ["18.0"]
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd "pg_isready -U odoo" --health-interval 5s --health-timeout 5s --health-retries 10
+    container:
+      image: odoo:18
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install on a fresh database (demo data loads by default in 18.0)
+        run: |
+          set -o pipefail
+          odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,$GITHUB_WORKSPACE \
+            --db_host db --db_user odoo --db_password odoo -d ci -i reorderowl_readiness \
+            --stop-after-init --log-level=warn 2>&1 | tee install.log
+          if grep -E "^[0-9-]+ [0-9:,]+ [0-9]+ (ERROR|CRITICAL) " install.log; then echo "install logged errors"; exit 1; fi
+      - name: Open the screen and every button as a non-admin purchase user
+        run: |
+          set -o pipefail
+          odoo shell --addons-path=/usr/lib/python3/dist-packages/odoo/addons,$GITHUB_WORKSPACE \
+            --db_host db --db_user odoo --db_password odoo -d ci --no-http \
+            < .github/workflows/screen_check.py 2>&1 | tee shell.log
+          grep -q SCREEN_OK shell.log

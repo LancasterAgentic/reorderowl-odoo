@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="reorderowl_readiness_view_form" model="ir.ui.view">
+        <field name="name">reorderowl.readiness.form</field>
+        <field name="model">reorderowl.readiness</field>
+        <field name="arch" type="xml">
+            <form string="ReorderOwl Readiness" create="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>ReorderOwl Readiness</h1>
+                        <p class="text-muted">
+                            A read-only check of the data that reorder suggestions depend on.
+                            This module changes none of your data and sends no data anywhere.
+                        </p>
+                    </div>
+                    <group string="Data to fix">
+                        <label for="unusable_code_count"/>
+                        <div class="o_row">
+                            <field name="unusable_code_count" class="oe_inline"/>
+                            <button name="action_open_unusable_codes" type="object" string="Show" class="btn-link" invisible="unusable_code_count == 0"/>
+                        </div>
+                        <div colspan="2" class="text-muted small">
+                            Internal Reference blank, longer than 24 characters, starting or ending with a space,
+                            starting with "($)", or shared with another product. ReorderOwl shows these as ODOO-&lt;id&gt;.
+                        </div>
+                        <label for="no_vendor_count"/>
+                        <div class="o_row">
+                            <field name="no_vendor_count" class="oe_inline"/>
+                            <button name="action_open_no_vendor" type="object" string="Show" class="btn-link" invisible="no_vendor_count == 0"/>
+                        </div>
+                        <div colspan="2" class="text-muted small">
+                            Storable products with no current vendor on their Purchase tab, so there is no one to order from.
+                        </div>
+                        <label for="zero_lead_time_count"/>
+                        <div class="o_row">
+                            <field name="zero_lead_time_count" class="oe_inline"/>
+                            <button name="action_open_zero_lead_time" type="object" string="Show" class="btn-link" invisible="zero_lead_time_count == 0"/>
+                        </div>
+                        <div colspan="2" class="text-muted small">
+                            Vendor lines with a delivery lead time of 0 days. Lead time decides when to reorder.
+                        </div>
+                    </group>
+                    <group string="Connecting ReorderOwl">
+                        <field name="base_url"/>
+                        <field name="database"/>
+                        <field name="company_name"/>
+                        <div colspan="2" class="text-muted">
+                            ReorderOwl is a separate hosted service that we set up with you after a booked demo.
+                            It reads your Odoo data through an API key that you create in My Profile, under
+                            Account Security, and can revoke at any time.
+                        </div>
+                        <div colspan="2">
+                            <button name="action_open_profile" type="object" string="Open My Profile" class="btn-secondary"/>
+                        </div>
+                        <label for="reorderowl_po_count"/>
+                        <div class="o_row">
+                            <field name="reorderowl_po_count" class="oe_inline"/>
+                            <button name="action_open_reorderowl_pos" type="object" string="Show" class="btn-link" invisible="reorderowl_po_count == 0"/>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="reorderowl_readiness_action" model="ir.actions.server">
+        <field name="name">ReorderOwl Readiness</field>
+        <field name="model_id" ref="model_reorderowl_readiness"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_readiness()</field>
+    </record>
+
+    <menuitem id="reorderowl_readiness_menu"
+              name="ReorderOwl Readiness"
+              parent="purchase.menu_purchase_products"
+              action="reorderowl_readiness_action"
+              groups="purchase.group_purchase_user"
+              sequence="90"/>
+</odoo>
