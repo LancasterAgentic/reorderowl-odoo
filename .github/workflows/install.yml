@@ -6,6 +6,9 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     services:
       db:
         image: postgres:16
