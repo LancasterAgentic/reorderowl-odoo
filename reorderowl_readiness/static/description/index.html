@@ -1,0 +1,54 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#2F4A1F;">ReorderOwl Readiness</h2>
+        <h3 class="oe_slogan">Find the data that weakens your reorder suggestions</h3>
+        <p class="oe_mt32">
+            Reorder suggestions are only as good as the product codes, vendors and lead times behind them.
+            This module adds one read-only screen, <b>Purchase &gt; Products &gt; ReorderOwl Readiness</b>,
+            that counts the problems and opens each list so you can fix it in the normal Odoo screens.
+        </p>
+        <div class="oe_demo oe_picture oe_screenshot">
+            <img src="screenshot_readiness.png" alt="ReorderOwl Readiness screen"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h3 class="oe_slogan">What it checks</h3>
+        <ul>
+            <li><b>Products without a usable Internal Reference</b>: blank, longer than 24 characters,
+                starting or ending with a space, or shared with another product.</li>
+            <li><b>Products without a current vendor</b>: storable products with no current vendor line,
+                so there is no one to order them from.</li>
+            <li><b>Vendor lines with no lead time</b>: a lead time of 0 days makes every reorder look urgent
+                or late.</li>
+        </ul>
+        <p>Every count has a <b>Show</b> button that opens the matching products or vendor lines.</p>
+        <div class="oe_demo oe_picture oe_screenshot">
+            <img src="screenshot_codes.png" alt="Products without a usable Internal Reference"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h3 class="oe_slogan">Connecting ReorderOwl</h3>
+        <p>
+            ReorderOwl is a separate hosted purchasing assistant from Lancaster Agentic. We set it up with you
+            after a booked demo. It reads your Odoo data through an API key that you create in
+            <b>My Profile &gt; Account Security</b> and can revoke at any time. The screen shows the Odoo URL,
+            database and company you will need, a button to open My Profile, and the purchase orders that
+            ReorderOwl has created (their Source Document is "ReorderOwl").
+        </p>
+        <h3 class="oe_slogan">Your data stays in Odoo</h3>
+        <p>
+            This module is read-only. It changes none of your data, makes no outside connections and sends no data
+            anywhere. You can use the checks without ReorderOwl.
+        </p>
+        <p>
+            Requires Purchase and Inventory (<i>purchase_stock</i>). Built for Odoo 18 and tested on
+            Odoo 18 Community. Questions: <a href="mailto:alex@lancasteragentic.com">alex@lancasteragentic.com</a>
+        </p>
+    </div>
+</section>
