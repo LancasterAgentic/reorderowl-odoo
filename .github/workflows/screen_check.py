@@ -9,4 +9,6 @@ for method in ("action_open_unusable_codes", "action_open_no_vendor", "action_op
                "action_open_reorderowl_pos", "action_open_profile"):
     action = getattr(record, method)()
     env[action["res_model"]].with_user(buyer).search(action.get("domain") or [])
+    if method == "action_open_profile":
+        assert action["res_model"] == "res.users" and action["res_id"] == buyer.id, "My Profile must open the user"
 print("SCREEN_OK", counts)

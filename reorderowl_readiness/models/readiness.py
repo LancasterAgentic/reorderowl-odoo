@@ -102,4 +102,6 @@ class ReorderowlReadiness(models.TransientModel):
         return self._open(_("Purchase orders created by ReorderOwl"), "purchase.order", self._po_domain())
 
     def action_open_profile(self):
-        return self.env.user.action_get()
+        action = self.env.user.action_get()
+        action["res_id"] = self.env.user.id  # the stored action has no record; Odoo's own menu adds it the same way
+        return action

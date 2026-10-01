@@ -2,7 +2,7 @@
 
 A free, read-only Odoo module from Lancaster Agentic. It adds **Purchase > Products > ReorderOwl Readiness**, a screen that counts the data problems that weaken reorder suggestions and opens each list so you can fix it:
 
-- products without a usable Internal Reference (blank, longer than 24 characters, leading or trailing space, or shared with another product)
+- products without a usable Internal Reference (blank, longer than 24 characters, leading or trailing space, starting with "($)", or shared with another product)
 - storable products without a current vendor
 - vendor lines with a lead time of 0 days
 

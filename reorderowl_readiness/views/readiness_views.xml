@@ -21,7 +21,7 @@
                         </div>
                         <div colspan="2" class="text-muted small">
                             Internal Reference blank, longer than 24 characters, starting or ending with a space,
-                            or shared with another product. ReorderOwl shows these as ODOO-&lt;id&gt;.
+                            starting with "($)", or shared with another product. ReorderOwl shows these as ODOO-&lt;id&gt;.
                         </div>
                         <label for="no_vendor_count"/>
                         <div class="o_row">
